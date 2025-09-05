@@ -1,0 +1,5 @@
+{
+  "name": "Blue Carbon MRV Prototype",
+  "description": "A minimal blockchain-powered prototype for a Blue Carbon Monitoring, Reporting, and Verification (MRV) system. This application allows NGOs to register mangrove restoration projects and mint carbon credits based on the project's area.",
+  "requestFramePermissions": []
+}
