@@ -4,6 +4,7 @@ import Header from './components/Header';
 import ProjectForm from './components/ProjectForm';
 import Dashboard from './components/Dashboard';
 import AdminWelcome from './components/AdminWelcome';
+import PrototypeBanner from './components/PrototypeBanner';
 
 const App = () => {
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
@@ -66,7 +67,8 @@ const App = () => {
   }, [projects]);
 
   return (
-    <div className="min-h-screen bg-ocean-blue-950 font-sans">
+    <div className="min-h-screen bg-gradient-to-br from-dark-950 via-dark-900 to-dark-950 font-sans">
+      <PrototypeBanner />
       <Header 
         walletAddress={walletAddress}
         onConnect={handleConnectWallet}
@@ -98,8 +100,12 @@ const App = () => {
           </div>
         </div>
       </main>
-      <footer className="text-center py-4 text-ocean-blue-700 text-sm">
-        <p>Built for the Blue Carbon Ecosystem. Prototype only.</p>
+      <footer className="text-center py-6 text-dark-400 text-sm border-t border-dark-800">
+        <p className="flex items-center justify-center gap-2">
+          <span>Built for the Blue Carbon Ecosystem</span>
+          <span className="text-dark-500">•</span>
+          <span className="text-amber-400 font-semibold">Prototype Only</span>
+        </p>
       </footer>
     </div>
   );

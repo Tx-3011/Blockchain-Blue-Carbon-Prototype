@@ -25,10 +25,10 @@ const RoleButton = ({
   return (
     <button
       onClick={onClick}
-      className={`px-4 py-1.5 text-sm font-semibold rounded-full transition-colors ${
+      className={`px-4 py-2 text-sm font-semibold rounded-xl transition-all duration-200 ${
         isActive
-          ? 'bg-cyan-500 text-white'
-          : 'bg-transparent text-ocean-blue-300 hover:bg-ocean-blue-700'
+          ? 'bg-gradient-to-r from-accent-500 to-accent-600 text-white shadow-lg shadow-accent-500/25'
+          : 'bg-dark-800/50 text-dark-300 hover:bg-dark-700/50 hover:text-white border border-dark-600 hover:border-dark-500'
       }`}
     >
       {children}
@@ -42,29 +42,35 @@ const Header = ({ walletAddress, onConnect, onDisconnect, isConnecting, currentR
     : 'Connect Wallet';
 
   return (
-    <header className="bg-ocean-blue-900/50 backdrop-blur-sm sticky top-0 z-10">
-      <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-        <div className="flex items-center gap-3">
-          <LeafIcon className="h-8 w-8 text-cyan-400" />
-          <h1 className="text-xl font-bold text-white tracking-tight">
-            Blue Carbon MRV
-          </h1>
+    <header className="glass-dark sticky top-0 z-10 border-b border-dark-700">
+      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div className="flex items-center gap-4">
+          <div className="relative">
+            <LeafIcon className="h-10 w-10 text-accent-400 animate-float" />
+            <div className="absolute -inset-1 bg-accent-500/20 rounded-full blur-sm"></div>
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold gradient-text tracking-tight">
+              Blue Carbon MRV
+            </h1>
+            <p className="text-xs text-dark-400 -mt-1">Monitoring, Reporting & Verification</p>
+          </div>
         </div>
         
-        <div className="hidden md:flex items-center gap-2 bg-ocean-blue-800 p-1 rounded-full">
+        <div className="hidden md:flex items-center gap-2 glass p-1 rounded-2xl">
             <RoleButton role="client" currentRole={currentRole} onClick={() => onRoleChange('client')}>Client View</RoleButton>
             <RoleButton role="admin" currentRole={currentRole} onClick={() => onRoleChange('admin')}>Admin View</RoleButton>
         </div>
         
         {walletAddress ? (
-            <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2 bg-ocean-blue-800 px-3 py-1.5 rounded-full text-sm">
-                    <div className="h-2 w-2 rounded-full bg-green-400"></div>
-                    <span>{displayAddress}</span>
+            <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 glass px-4 py-2 rounded-xl text-sm">
+                    <div className="h-2 w-2 rounded-full bg-accent-400 animate-pulse"></div>
+                    <span className="font-mono text-dark-200">{displayAddress}</span>
                 </div>
                 <button
                     onClick={onDisconnect}
-                    className="text-sm bg-red-500/20 hover:bg-red-500/40 text-red-300 px-4 py-2 rounded-full transition-colors"
+                    className="text-sm bg-red-500/20 hover:bg-red-500/30 text-red-300 px-4 py-2 rounded-xl transition-all duration-200 border border-red-500/30 hover:border-red-500/50"
                 >
                     Disconnect
                 </button>
@@ -73,18 +79,17 @@ const Header = ({ walletAddress, onConnect, onDisconnect, isConnecting, currentR
             <button
                 onClick={onConnect}
                 disabled={isConnecting}
-                className="flex items-center gap-2 bg-ocean-blue-600 hover:bg-ocean-blue-500 disabled:bg-ocean-blue-800 disabled:cursor-not-allowed text-white font-semibold px-4 py-2 rounded-full transition-colors"
+                className="btn-primary flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
             >
                 <WalletIcon className="h-5 w-5" />
                 <span>{isConnecting ? 'Connecting...' : 'Connect Wallet'}</span>
             </button>
         )}
       </div>
-       <div className="md:hidden flex items-center justify-center gap-2 bg-ocean-blue-900 p-2">
+       <div className="md:hidden flex items-center justify-center gap-2 glass p-3 mx-4 mb-2 rounded-xl">
             <RoleButton role="client" currentRole={currentRole} onClick={() => onRoleChange('client')}>Client View</RoleButton>
             <RoleButton role="admin" currentRole={currentRole} onClick={() => onRoleChange('admin')}>Admin View</RoleButton>
         </div>
-      <div className="h-0.5 bg-gradient-to-r from-transparent via-cyan-500 to-transparent"></div>
     </header>
   );
 };

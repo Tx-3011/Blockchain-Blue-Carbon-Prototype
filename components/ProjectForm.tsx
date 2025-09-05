@@ -168,49 +168,58 @@ const ProjectForm = ({ walletConnected, onProjectSubmitted, onConnectWallet }: P
   };
 
   return (
-    <div className="bg-ocean-blue-900/80 p-6 rounded-2xl shadow-lg border border-ocean-blue-800">
-      <h2 className="text-2xl font-bold mb-4 text-white">Submit Project for Approval</h2>
-      <form onSubmit={handleSubmit} className="space-y-5">
+    <div className="card p-8">
+      <div className="mb-6">
+        <h2 className="text-3xl font-bold mb-2 text-white">Submit Project for Approval</h2>
+        <p className="text-dark-400">Upload your coastal area images and get AI-powered carbon credit analysis</p>
+      </div>
+      <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label htmlFor="projectName" className="block text-sm font-medium text-ocean-blue-300 mb-1">Project Name</label>
+          <label htmlFor="projectName" className="block text-sm font-medium text-dark-300 mb-2">Project Name</label>
           <input
             type="text"
             id="projectName"
             value={projectName}
             onChange={(e) => setProjectName(e.target.value)}
-            className="w-full bg-ocean-blue-950 border border-ocean-blue-700 rounded-lg px-3 py-2 text-white focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition"
+            className="input-field w-full"
             placeholder="e.g., Sundarbans Restoration"
           />
         </div>
         <div>
-          <label htmlFor="location" className="block text-sm font-medium text-ocean-blue-300 mb-1">Location (Coordinates)</label>
+          <label htmlFor="location" className="block text-sm font-medium text-dark-300 mb-2">Location (Coordinates)</label>
           <input
             type="text"
             id="location"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
-            className="w-full bg-ocean-blue-950 border border-ocean-blue-700 rounded-lg px-3 py-2 text-white focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition"
+            className="input-field w-full"
             placeholder="e.g., 21.9497° N, 89.1833° E"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-ocean-blue-300 mb-1">Project Image</label>
-          <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-ocean-blue-700 border-dashed rounded-md">
-            <div className="space-y-1 text-center">
+          <label className="block text-sm font-medium text-dark-300 mb-2">Project Image</label>
+          <div className="flex justify-center px-6 pt-8 pb-8 border-2 border-dark-600 border-dashed rounded-xl glass hover:border-accent-500/50 transition-colors">
+            <div className="space-y-3 text-center">
               {imagePreview ? (
-                <img src={imagePreview} alt="Project preview" className="mx-auto h-32 w-auto rounded-lg" />
+                <div className="relative">
+                  <img src={imagePreview} alt="Project preview" className="mx-auto h-40 w-auto rounded-xl border border-dark-600" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-xl"></div>
+                </div>
               ) : (
-                <UploadIcon className="mx-auto h-12 w-12 text-ocean-blue-500" />
+                <div className="relative">
+                  <UploadIcon className="mx-auto h-16 w-16 text-dark-500" />
+                  <div className="absolute -inset-2 bg-accent-500/10 rounded-full blur-lg"></div>
+                </div>
               )}
-              <div className="flex text-sm text-ocean-blue-400">
-                <label htmlFor="file-upload" className="relative cursor-pointer bg-ocean-blue-950 rounded-md font-medium text-cyan-400 hover:text-cyan-300 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-ocean-blue-900 focus-within:ring-cyan-500">
+              <div className="flex text-sm text-dark-400">
+                <label htmlFor="file-upload" className="relative cursor-pointer glass rounded-lg px-4 py-2 font-medium text-accent-400 hover:text-accent-300 transition-colors">
                   <span>Upload a file</span>
                   <input id="file-upload" name="file-upload" type="file" className="sr-only" onChange={handleImageChange} accept="image/png, image/jpeg, image/webp" />
                 </label>
-                <p className="pl-1">or drag and drop</p>
+                <p className="pl-2 self-center">or drag and drop</p>
               </div>
-              <p className="text-xs text-ocean-blue-500">PNG, JPG, WebP supported</p>
+              <p className="text-xs text-dark-500">PNG, JPG, WebP supported</p>
             </div>
           </div>
         </div>
@@ -220,54 +229,84 @@ const ProjectForm = ({ walletConnected, onProjectSubmitted, onConnectWallet }: P
             type="button"
             onClick={handleAiAnalysis}
             disabled={isAnalyzing || !!aiAnalysisNotes}
-            className="w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 disabled:bg-ocean-blue-700 disabled:cursor-not-allowed text-white font-bold py-2 rounded-lg transition-colors"
+            className="w-full btn-primary flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
           >
             {isAnalyzing ? (
               <>
-                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                Analyzing...
+                <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Analyzing with AI...
               </>
             ) : (
-              <><SparklesIcon className="h-5 w-5" /> {aiAnalysisNotes ? 'Analysis Complete' : 'Analyze with AI'}</>
+              <>
+                <SparklesIcon className="h-5 w-5" /> 
+                {aiAnalysisNotes ? 'Analysis Complete' : 'Analyze with AI'}
+              </>
             )}
           </button>
         )}
         
         {aiAnalysisNotes && (
-          <div className="bg-ocean-blue-800/50 p-4 rounded-lg space-y-3">
-             <div className="flex items-center gap-2 text-lg font-bold text-cyan-400">
-                <SparklesIcon className="h-5 w-5"/>
+          <div className="glass p-6 rounded-xl border-l-4 border-accent-500 space-y-4">
+             <div className="flex items-center gap-3 text-lg font-bold text-accent-400">
+                <SparklesIcon className="h-6 w-6"/>
                 AI Analysis Result
              </div>
              <div>
-                <label className="block text-sm font-medium text-ocean-blue-300 mb-1">Estimated Area (hectares)</label>
-                <input type="text" value={areaHectares} readOnly className="w-full bg-ocean-blue-950 border border-ocean-blue-700 rounded-lg px-3 py-2 text-white" />
+                <label className="block text-sm font-medium text-dark-300 mb-2">Estimated Area (hectares)</label>
+                <input type="text" value={areaHectares} readOnly className="input-field w-full bg-dark-800/50" />
              </div>
              <div>
-                <label className="block text-sm font-medium text-ocean-blue-300 mb-1">Notes</label>
-                <p className="text-sm text-ocean-blue-200 bg-ocean-blue-950 p-3 rounded-lg">{aiAnalysisNotes}</p>
+                <label className="block text-sm font-medium text-dark-300 mb-2">Analysis Notes</label>
+                <p className="text-sm text-dark-200 glass p-4 rounded-xl">{aiAnalysisNotes}</p>
              </div>
           </div>
         )}
 
-        <div className="bg-ocean-blue-800/50 p-4 rounded-lg text-center">
-          <p className="text-sm text-ocean-blue-300">Calculated Carbon Credits upon Approval</p>
-          <p className="text-3xl font-bold text-cyan-400 mt-1">{carbonCredits.toLocaleString()}</p>
+        <div className="glass p-6 rounded-xl text-center border border-accent-500/30">
+          <p className="text-sm text-dark-400 mb-2">Calculated Carbon Credits upon Approval</p>
+          <div className="flex items-center justify-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-accent-400 animate-pulse"></div>
+            <p className="text-4xl font-bold gradient-text">{carbonCredits.toLocaleString()}</p>
+          </div>
         </div>
         
-        {error && <p className="text-red-400 text-sm text-center">{error}</p>}
-        {successMessage && <p className="text-green-400 text-sm text-center">{successMessage}</p>}
+        {error && (
+          <div className="p-4 bg-red-500/20 border border-red-500/30 rounded-xl">
+            <p className="text-red-400 text-sm text-center">{error}</p>
+          </div>
+        )}
+        {successMessage && (
+          <div className="p-4 bg-accent-500/20 border border-accent-500/30 rounded-xl">
+            <p className="text-accent-400 text-sm text-center">{successMessage}</p>
+          </div>
+        )}
         
         {walletConnected ? (
           <button
             type="submit"
             disabled={isSubmitting || !aiAnalysisNotes}
-            className="w-full flex items-center justify-center gap-2 bg-cyan-600 hover:bg-cyan-500 disabled:bg-ocean-blue-700 disabled:cursor-not-allowed text-white font-bold py-3 rounded-lg transition-colors text-lg"
+            className="w-full btn-primary flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 text-lg py-4"
           >
-            {isSubmitting ? 'Submitting...' : <><MintIcon className="h-6 w-6" /> Submit for Approval</>}
+            {isSubmitting ? (
+              <>
+                <svg className="animate-spin h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Submitting...
+              </>
+            ) : (
+              <>
+                <MintIcon className="h-6 w-6" /> 
+                Submit for Approval
+              </>
+            )}
           </button>
         ) : (
-            <button type="button" onClick={onConnectWallet} className="w-full bg-ocean-blue-600 hover:bg-ocean-blue-500 text-white font-bold py-3 rounded-lg transition-colors text-lg">
+            <button type="button" onClick={onConnectWallet} className="w-full btn-secondary text-lg py-4">
                 Connect Wallet to Submit
             </button>
         )}
