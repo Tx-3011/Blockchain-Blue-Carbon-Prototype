@@ -5,8 +5,10 @@ import ProjectForm from './components/ProjectForm';
 import Dashboard from './components/Dashboard';
 import AdminWelcome from './components/AdminWelcome';
 import PrototypeBanner from './components/PrototypeBanner';
+import TitleScreen from './components/TitleScreen';
 
 const App = () => {
+  const [showMainApp, setShowMainApp] = useState<boolean>(false);
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
   const [projects, setProjects] = useState<Project[]>([]);
   const [isConnecting, setIsConnecting] = useState<boolean>(false);
@@ -65,6 +67,15 @@ const App = () => {
       .filter(p => p.status === 'approved')
       .reduce((sum, project) => sum + project.carbonCredits, 0);
   }, [projects]);
+
+  const handleGetStarted = useCallback(() => {
+    setShowMainApp(true);
+  }, []);
+
+  // Show title screen first
+  if (!showMainApp) {
+    return <TitleScreen onGetStarted={handleGetStarted} />;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-dark-950 via-dark-900 to-dark-950 font-sans">
